@@ -6,9 +6,9 @@ public class Main {
 	public static void main(String[] args) {
 
 
-		String mensaje="hola,cuanto es 12*12";
+		String mensaje="evaluar sumar5(x) en 12.3";
 		Asistente jenkins= new Asistente("jenkins");
-		jenkins.setUsuario("Gise");
+		jenkins.setUsuario("Franco");
 		System.out.println(jenkins.escuchar(mensaje));
 		
 	}

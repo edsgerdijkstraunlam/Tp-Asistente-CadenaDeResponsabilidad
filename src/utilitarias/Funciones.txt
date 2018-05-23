@@ -1,0 +1,3 @@
+12*x+5 potencias2
+12*x+5 potencias
+x+5 sumar5

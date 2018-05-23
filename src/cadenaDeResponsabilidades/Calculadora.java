@@ -1,15 +1,121 @@
 package cadenaDeResponsabilidades;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
 import asistente.ReceptorDeMensaje;
+import utilitarias.Funcion;
 
 public class Calculadora implements ReceptorDeMensaje {
 	private char[] operadoresValidos = new char[] { '+', '-', '/', '*', 'r', '^', '(' };
 
 	private ReceptorDeMensaje next;
+	private ArrayList<Funcion> listaDeFunciones;
+
+	public Calculadora() {
+		listaDeFunciones = new ArrayList<Funcion>();
+		this.cargarFunciones();
+	}
+
+	public void cargarFunciones() {
+		FileReader fr;
+
+		File file = new File("src\\utilitarias\\Funciones.txt");
+
+		try {
+
+			try {
+				fr = new FileReader(file);
+			} catch (FileNotFoundException e) {
+				PrintWriter pw = new PrintWriter("src\\utilitarias\\Funciones.txt");
+				fr = new FileReader(file);
+				pw.close();
+			}
+			BufferedReader br = new BufferedReader(fr);
+			String lin = br.readLine();
+
+			while (lin != null) {
+				String linea[] = lin.split(" ");
+
+				Funcion f = new Funcion(linea[1], linea[0]);
+				if (!listaDeFunciones.isEmpty())
+					for (Funcion elem : listaDeFunciones) {
+						if (elem.compareTo(f) == 0)
+							break;
+					}
+				listaDeFunciones.add(f);
+
+				lin = br.readLine();
+
+			}
+			br.close();
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		System.out.println();
+	}
+
+	public String definirFuncion(String exp, String nombre) {
+		Funcion f = new Funcion(nombre, exp);
+		if (!listaDeFunciones.isEmpty())
+			for (Funcion elem : listaDeFunciones) {
+				if (elem.compareTo(f) == 0)
+					return "La funcion ya existe";
+			}
+		listaDeFunciones.add(f);
+		try {
+			File file = new File("src\\utilitarias\\Funciones.txt");
+
+			FileWriter textOut = new FileWriter(file, true);
+			textOut.append(exp + " " + nombre+"\r\n");
+			
+			textOut.close();
+		} catch (Exception e) {
+			return "Ha habido un error ";
+		}
+
+		return "Se ha definido la funcion " + nombre+"(X)";
+
+	}
+	
+	
+	
+	public String evaluarFuncionEnX(String nombre,double x){
+		Funcion f = new Funcion(nombre,null);
+		if (!listaDeFunciones.isEmpty())
+			for (Funcion elem : listaDeFunciones) {
+				if (elem.compareTo(f) == 0){
+					f=elem;
+					try {
+						return "el resultado es "+evaluar(f.getFuncion(), x);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						return "Error";
+					}
+					
+				}
+			}
+		
+		
+		
+		
+		
+		
+		return "No existe la funcion "+ nombre;
+		
+	}
+	
+	
 
 	private int evaluarPrecedencia(char op1, char op2) {
 
@@ -91,7 +197,7 @@ public class Calculadora implements ReceptorDeMensaje {
 		return false;
 	}
 
-	private Queue<String> pasarAInfija(String exp) {
+	private Queue<String> pasarAPosfija(String exp) {
 
 		exp = exp.replaceAll("\\s", "");
 
@@ -116,8 +222,14 @@ public class Calculadora implements ReceptorDeMensaje {
 
 			}
 
-			else if (exp.charAt(i) <= '9' && exp.charAt(i) >= '0') {
-				while (j < exp.length() && (exp.charAt(j) <= '9' && exp.charAt(j) >= '0' || exp.charAt(j) == '.')) {
+			else if (exp.charAt(i) <= '9' && exp.charAt(i) >= '0' || exp.charAt(i) == 'x') { // Que
+																								// reconozca
+																								// la
+																								// x
+																								// como
+																								// valor
+				while (j < exp.length() && (exp.charAt(j) <= '9' && exp.charAt(j) >= '0' || exp.charAt(j) == '.'
+						|| exp.charAt(j) == 'x')) {
 					j++;
 				}
 				elem = exp.substring(i, j);
@@ -162,15 +274,15 @@ public class Calculadora implements ReceptorDeMensaje {
 
 	}
 
-	public double evaluar(String exp) throws Exception {
+	public double evaluar(String exp,Double x) throws Exception {
 
 		Queue<String> cola;
-		cola = this.pasarAInfija(exp);
-		return evaluarEnPostfija(cola);
+		cola = this.pasarAPosfija(exp);
+		return evaluarEnPostfija(cola,x);
 
 	}
 
-	private double evaluarEnPostfija(Queue<String> cola) {
+	private double evaluarEnPostfija(Queue<String> cola,Double x) {
 
 		Stack<Double> aux = new Stack<Double>();
 
@@ -180,8 +292,15 @@ public class Calculadora implements ReceptorDeMensaje {
 
 			elem = (cola.poll());
 			if (elem.length() > 1 || !vectorContiene(operadoresValidos, elem)) {
-				aux.add(Double.valueOf(elem));
-			} else {
+				if(elem.equals("x")&&x!=null){
+					aux.add(x);
+				}
+				else 
+					aux.add(Double.valueOf(elem));
+			} 
+			
+			
+			else {
 
 				switch (elem.charAt(0)) {
 				case '+':
@@ -221,6 +340,7 @@ public class Calculadora implements ReceptorDeMensaje {
 	@Override
 	public String escuchar(String msg, String usuario) {
 
+		Double x= null;
 		if (msg.contains("cuanto es el") || msg.contains("cuánto es el") && msg.contains("%")) {
 			msg = msg.replace("de", "");
 			msg = msg.replace(" ", "");
@@ -234,7 +354,7 @@ public class Calculadora implements ReceptorDeMensaje {
 			String exp = msg.substring(msg.indexOf("cuanto es") + 9, msg.length());
 			Calculadora c = new Calculadora();
 			try {
-				double res = c.evaluar(exp);
+				double res = c.evaluar(exp,x);
 				return usuario + " el resultado es: " + String.valueOf(res).replace(',', '.');
 
 			} catch (Exception e) {
@@ -242,6 +362,18 @@ public class Calculadora implements ReceptorDeMensaje {
 			}
 
 		}
+
+		else if (msg.contains("definir")) {
+			String exp = msg.substring(msg.indexOf("=") + 1, msg.length());
+			exp = exp.replace(" ", "");
+			return usuario+" "+definirFuncion(exp, msg.substring(msg.indexOf("definir") + 8, msg.indexOf("(x")).replace(" ", ""));
+		}
+		else if (msg.contains("evaluar")) {
+			String exp = msg.substring(msg.indexOf("evaluar ") +8, msg.indexOf("(x)") );
+			exp = exp.replace(" ", "");
+			return usuario+" "+evaluarFuncionEnX(exp, Double.parseDouble(msg.substring(msg.indexOf(" en ") +4, msg.length() )));
+		}
+		
 
 		return next.escuchar(msg, usuario);
 
@@ -255,7 +387,7 @@ public class Calculadora implements ReceptorDeMensaje {
 
 	@Override
 	public ReceptorDeMensaje getNext() {
-		// TODO Auto-generated method stub
+
 		return this.next;
 	}
 
