@@ -2,6 +2,7 @@ package asistente;
 
 import cadenaDeResponsabilidades.Agradecimiento;
 import cadenaDeResponsabilidades.Calculadora;
+
 import cadenaDeResponsabilidades.ChuckNorris;
 import cadenaDeResponsabilidades.Default;
 import cadenaDeResponsabilidades.FechayHora;
@@ -16,10 +17,10 @@ public class Asistente {
 
 	public Asistente(String nombre) {
 		this.nombre = nombre;
-		
+
 		Calculadora calc = new Calculadora();
 		this.next = calc;
-		
+
 		Saludo saludo = new Saludo();
 		calc.setNext(saludo);
 
@@ -28,8 +29,8 @@ public class Asistente {
 
 		Agradecimiento agrad = new Agradecimiento();
 		fyh.setNext(agrad);
-		
-		ChuckNorris cn= new ChuckNorris();
+
+		ChuckNorris cn = new ChuckNorris();
 		agrad.setNext(cn);
 
 		Default def = new Default();
@@ -43,6 +44,7 @@ public class Asistente {
 	public void setUsuario(String usuario) {
 		this.usuario = "@" + usuario;
 	}
+
 	public String getUsuario() {
 		return this.usuario;
 	}
@@ -50,5 +52,4 @@ public class Asistente {
 	public String escuchar(String msg) {
 		return next.escuchar(msg.toLowerCase(), usuario);
 	}
-
 }
