@@ -24,10 +24,10 @@ public class Calculadora implements ReceptorDeMensaje {
 		if (!listaDeFunciones.isEmpty())
 			for (Funcion elem : listaDeFunciones) {
 				if (elem.compareTo(f) == 0)
-					return "la funcion " + nombre + "(X)" + " ya existe";
+					return "la funcion " + nombre + "(x)" + " ya existe";
 			}
 		listaDeFunciones.add(f);
-		return "se ha definido la funcion " + nombre + "(X)";
+		return "se ha definido la funcion " + nombre + "(x)";
 
 	}
 
@@ -46,7 +46,7 @@ public class Calculadora implements ReceptorDeMensaje {
 				}
 			}
 
-		return "no existe la funcion " + nombre;
+		return "no existe la funcion " + nombre+"(x)";
 
 	}
 

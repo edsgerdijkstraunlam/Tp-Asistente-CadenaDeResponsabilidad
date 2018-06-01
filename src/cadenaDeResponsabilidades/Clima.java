@@ -129,16 +129,9 @@ public class Clima implements ReceptorDeMensaje {
 			try {
 				return usuario + " " + c.getClimaxPaisCiudad();
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 
 		}
 
@@ -171,16 +164,9 @@ public class Clima implements ReceptorDeMensaje {
 			try {
 				return usuario + " " + c.getClimaxPaisCiudad(pais, ciudad);
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 
 		}
 
