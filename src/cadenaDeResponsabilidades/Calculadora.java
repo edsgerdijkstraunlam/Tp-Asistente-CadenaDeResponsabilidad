@@ -254,7 +254,8 @@ public class Calculadora implements ReceptorDeMensaje {
 					result = Math.pow(aux.pop(), (1 / aux.pop()));
 					break;
 				case '^':
-					result = Math.pow(aux.pop(), aux.pop());
+					primero=aux.pop();
+					result = Math.pow( aux.pop(),primero);
 					break;
 
 				default:

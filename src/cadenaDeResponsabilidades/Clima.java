@@ -58,20 +58,57 @@ public class Clima implements ReceptorDeMensaje {
 
 		// System.out.println(ciudadIn + " "+ paisIn);
 
-		URL url = new URL("http://api.wunderground.com/api/7a285327b21de2f4/conditions/lang:SP/q/" + paisIn + '/'
-				+ ciudadIn + ".xml");
-		InputStream is = url.openStream();
+		URL url;
+		InputStream is;
+		DocumentBuilderFactory docbuildFactory;
+		DocumentBuilder docBuilder;
+		Document document;
+		Element element;
+		if (ciudadIn.equals("")) {
+			url = new URL(
+					"http://api.wunderground.com/api/7a285327b21de2f4/conditions/lang:SP/q/" + paisIn + '/' + ".xml");
 
-		DocumentBuilderFactory docbuildFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = docbuildFactory.newDocumentBuilder();
-		Document document = docBuilder.parse(is);
+			is = url.openStream();
+
+			docbuildFactory = DocumentBuilderFactory.newInstance();
+			docBuilder = docbuildFactory.newDocumentBuilder();
+			document = docBuilder.parse(is);
+
+			document.getDocumentElement().normalize();
+
+			element = document.getDocumentElement();
+			if (element.getElementsByTagName("name").item(0) == null) {
+				return "Clima no encontrado :(";
+			}
+			int item = (int)(Math.random()*100)%10;
+			boolean existeItem=false;
+			do {
+				try {
+					ciudadIn = element.getElementsByTagName("name").item(item).getTextContent().toLowerCase()
+							.replace(" ", "_");
+					existeItem=true;
+					item--;
+				} catch (Exception e) {
+					
+				}
+			} while (item >= 0 && !existeItem);
+		}
+
+		url = new URL("http://api.wunderground.com/api/7a285327b21de2f4/conditions/lang:SP/q/" + paisIn + '/' + ciudadIn
+				+ ".xml");
+
+		is = url.openStream();
+
+		docbuildFactory = DocumentBuilderFactory.newInstance();
+		docBuilder = docbuildFactory.newDocumentBuilder();
+		document = docBuilder.parse(is);
 
 		document.getDocumentElement().normalize();
 
-		Element element = document.getDocumentElement();
+		element = document.getDocumentElement();
 
 		if (element.getElementsByTagName("full").item(0) == null) {
-			return "Clima no encontrado :(";
+			return "Clima de "+ciudadIn+", "+paisIn+" no encontrado :(";
 		}
 
 		return ("El clima en " + element.getElementsByTagName("full").item(0).getTextContent() + " es "
@@ -121,7 +158,7 @@ public class Clima implements ReceptorDeMensaje {
 			}
 
 			trimed = msg.substring(startDe + 2);
-			
+
 			if (trimed.contains(",")) {
 				String[] partes = trimed.split(",");
 				ciudad = partes[0];
@@ -130,7 +167,7 @@ public class Clima implements ReceptorDeMensaje {
 				pais = trimed;
 				ciudad = " ";
 			}
-			
+
 			try {
 				return usuario + " " + c.getClimaxPaisCiudad(pais, ciudad);
 
