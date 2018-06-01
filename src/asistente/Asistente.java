@@ -4,8 +4,11 @@ import cadenaDeResponsabilidades.Agradecimiento;
 import cadenaDeResponsabilidades.Calculadora;
 
 import cadenaDeResponsabilidades.ChuckNorris;
+import cadenaDeResponsabilidades.Clima;
 import cadenaDeResponsabilidades.Default;
 import cadenaDeResponsabilidades.FechayHora;
+import cadenaDeResponsabilidades.LeyesDeLaRobotica;
+import cadenaDeResponsabilidades.Noticias;
 import cadenaDeResponsabilidades.Saludo;
 
 public class Asistente {
@@ -29,12 +32,21 @@ public class Asistente {
 
 		Agradecimiento agrad = new Agradecimiento();
 		fyh.setNext(agrad);
+		
+		Clima cli = new Clima();
+		agrad.setNext(cli);
+		
+		Noticias noti = new Noticias();
+		cli.setNext(noti);
 
 		ChuckNorris cn = new ChuckNorris();
-		agrad.setNext(cn);
+		noti.setNext(cn);
+		
+		LeyesDeLaRobotica lr= new LeyesDeLaRobotica();
+		cn.setNext(lr);
 
 		Default def = new Default();
-		cn.setNext(def);
+		lr.setNext(def);
 	}
 
 	public String getName() {
