@@ -15,25 +15,34 @@ public class FechayHora implements ReceptorDeMensaje{
 	
 	private ReceptorDeMensaje next;
 
-	public final static Date FECHA_HORA = new GregorianCalendar().getTime();
-	//public final static Date FECHA_HORA = new GregorioanCalendar().getTime();
-	//Sin parametros da la fecha actual
+	GregorianCalendar gc=new GregorianCalendar();
+	public Date FECHA_HORA;
 	
-	public static String fecha(String mensaje) {
+	public FechayHora() {
+		FECHA_HORA=gc.getTime();
+	}
+	public FechayHora(GregorianCalendar gc) {
+		this.gc=gc;
+		FECHA_HORA=gc.getTime();
+	}
+	
+	
+	
+	public String fecha(String mensaje) {
 
 		DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 		return " hoy es " + formatoFecha.format(FECHA_HORA);
 
 	}
 
-	public static String hora(String mensaje) {
+	public String hora(String mensaje) {
 
 		DateFormat formatoHora = new SimpleDateFormat("HH:mm");
 		return " son las " + formatoHora.format(FECHA_HORA);
 
 	}
 	
-	public static String diaSemana(String mensaje){
+	public String diaSemana(String mensaje){
 		
 		String[] diasSemana = new String[] { "domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado" };
 
@@ -44,11 +53,12 @@ public class FechayHora implements ReceptorDeMensaje{
 		return " hoy es " + diasSemana[dia] ;
 	}
 	
-	public static String diaDentroNdias(String msg){
+	public String diaDentroNdias(String msg){
 		String []cant=msg.substring(msg.indexOf("dentro de")+10,msg.length()).split(" ");
 		
 		 int dias = Integer.valueOf(cant[0]);
-		 Calendar c1 = Calendar.getInstance(); 
+		 
+		 GregorianCalendar c1 = (GregorianCalendar)gc.clone(); 
 		 SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/yyyy");
 		 
 	     c1.add(Calendar.DATE, dias);
@@ -57,12 +67,12 @@ public class FechayHora implements ReceptorDeMensaje{
 		
 	}
 	
-	public static String diaDentroNmeses(String msg){
+	public String diaDentroNmeses(String msg){
 		String []cant=msg.substring(msg.indexOf("dentro de")+10,msg.length()).split(" ");
 		
 		 int meses = Integer.valueOf(cant[0]);
 		 
-		 Calendar c1 = Calendar.getInstance(); 
+		 GregorianCalendar c1 = (GregorianCalendar)gc.clone();  
 		 SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/yyyy");
 		 
 	     c1.add(Calendar.MONTH, meses);
@@ -71,12 +81,13 @@ public class FechayHora implements ReceptorDeMensaje{
 		
 	}
 	
-	public static String diaDentroNaños(String msg){
+	public String diaDentroNaños(String msg){
 		String []cant=msg.substring(msg.indexOf("dentro de")+10,msg.length()).split(" ");
 		
 		 int años = Integer.valueOf(cant[0]);
 		 
-		 Calendar c1 = Calendar.getInstance(); 
+		// Calendar c1 = Calendar.getInstance(); 
+		 GregorianCalendar c1 = (GregorianCalendar)gc.clone(); 
 		 SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/yyyy");
 		 
 	     c1.add(Calendar.YEAR, años);
@@ -85,13 +96,13 @@ public class FechayHora implements ReceptorDeMensaje{
 		
 	}
 	
-	public static String diaHaceNdias(String msg){
+	public String diaHaceNdias(String msg){
 		
 		String []cant=msg.substring(msg.indexOf("hace")+5,msg.length()).split(" ");
 		
 		 int dias = Integer.valueOf(cant[0]);
-	
-		 Calendar c1 = Calendar.getInstance(); 
+		 GregorianCalendar c1 = (GregorianCalendar)gc.clone(); 
+		
 		 SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/yyyy");
 		 
 	     c1.add(Calendar.DATE, -dias);
@@ -100,13 +111,14 @@ public class FechayHora implements ReceptorDeMensaje{
 		
 	}
 	
-	public static String diaHaceNmeses(String msg){
+	public String diaHaceNmeses(String msg){
 		
 		
 		String []cant=msg.substring(msg.indexOf("hace")+5,msg.length()).split(" ");
 		
 		 int meses = Integer.valueOf(cant[0]);
-		 Calendar c1 = Calendar.getInstance(); 
+		 // c1 = Calendar.getInstance(); 
+		 GregorianCalendar c1 = (GregorianCalendar)gc.clone();  
 		 SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/yyyy");
 		 
 	     c1.add(Calendar.MONTH, -meses);
@@ -115,13 +127,13 @@ public class FechayHora implements ReceptorDeMensaje{
 		
 	}
 	
-	public static String diaHaceNaños(String msg){
+	public String diaHaceNaños(String msg){
 		
 		
 		String []cant=msg.substring(msg.indexOf("hace")+5,msg.length()).split(" ");
 		
 		 int años = Integer.valueOf(cant[0]);
-		 Calendar c1 = Calendar.getInstance(); 
+		 GregorianCalendar c1 = (GregorianCalendar)gc.clone();  
 		 SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/yyyy");
 		 
 	     c1.add(Calendar.YEAR, -años);
@@ -132,7 +144,7 @@ public class FechayHora implements ReceptorDeMensaje{
 	
 	//hay otra forma haciendo la resta entre los milisegundos y dividirlos por 1 dia=1000 * 60 * 60 * 24
 	//cuántos días pasaron desde el 1 de abril de 2017
-	public static String diasDesdeXHastaY(String msg){
+	public String diasDesdeXHastaY(String msg){
 		
 		String [] meses = {"enero" , "febrero" , "marzo" , "abril" ,"mayo", "junio" , "julio" ,"agosto" ,"septiembre","octubre","noviembre","diciembre"};		
 		
@@ -144,8 +156,6 @@ public class FechayHora implements ReceptorDeMensaje{
 		int dia=Integer.valueOf(fecha[0]);
 		int años = Integer.valueOf(fecha[2]);
 		
-		//Calendar fechaInicio = new GregorianCalendar() ;
-		//Calendar fechaFin = new GregorianCalendar(); 
 		
 		int mes=0,j=0;
 		
@@ -156,8 +166,12 @@ public class FechayHora implements ReceptorDeMensaje{
 			j++;
 		}
 		
+	
+		
 		LocalDate d1=LocalDate.of(años, mes+1, dia);
-		LocalDate d2=LocalDate.now();
+		LocalDate d2=LocalDate.of(gc.get(Calendar.YEAR),gc.get(Calendar.MONTH)+1,gc.get(Calendar.DAY_OF_MONTH));
+		
+		
 		long diasEntre= ChronoUnit.DAYS.between(d1, d2);
 		
 		  
@@ -170,7 +184,7 @@ public class FechayHora implements ReceptorDeMensaje{
 		return " pasaron " + diasEntre  + " días";
 	}
 	
-	public static String mesesDesdeXHastaY(String msg){
+	public String mesesDesdeXHastaY(String msg){
 		
 		String [] meses = {"enero" , "febrero" , "marzo" , "abril" ,"mayo", "junio" , "julio" ,"agosto" ,"septiembre","octubre","noviembre","diciembre"};		
 		
@@ -182,8 +196,6 @@ public class FechayHora implements ReceptorDeMensaje{
 		int dia=Integer.valueOf(fecha[0]);
 		int años = Integer.valueOf(fecha[2]);
 		
-		//Calendar fechaInicio = new GregorianCalendar() ;
-		//Calendar fechaFin = new GregorianCalendar(); 
 		
 		int mes=0,j=0;
 		
@@ -195,19 +207,18 @@ public class FechayHora implements ReceptorDeMensaje{
 		}
 		
 		LocalDate d1=LocalDate.of(años, mes+1, dia);
-		LocalDate d2=LocalDate.now();
+		//LocalDate d2=LocalDate.now();
+		LocalDate d2=LocalDate.of(gc.get(Calendar.YEAR),gc.get(Calendar.MONTH)+1,gc.get(Calendar.DAY_OF_MONTH));
+		
+
 		/*long diasEntre= ChronoUnit.DAYS.between(d1, d2);
 		*/
 		  
 		long monthBetween = ChronoUnit.MONTHS.between(d1, d2);
-	    //fechaInicio.setTime(FECHA_HORA);
-		//fechaFin.set(años, mes, dia);		 
-
-		
 		return " pasaron " + monthBetween  + " meses";
 	}
 	
-	public static String añosDesdeXHastaY(String msg){
+	public String añosDesdeXHastaY(String msg){
 		
 		String [] meses = {"enero" , "febrero" , "marzo" , "abril" ,"mayo", "junio" , "julio" ,"agosto" ,"septiembre","octubre","noviembre","diciembre"};		
 		
@@ -219,8 +230,6 @@ public class FechayHora implements ReceptorDeMensaje{
 		int dia=Integer.valueOf(fecha[0]);
 		int años = Integer.valueOf(fecha[2]);
 		
-		//Calendar fechaInicio = new GregorianCalendar() ;
-		//Calendar fechaFin = new GregorianCalendar(); 
 		
 		int mes=0,j=0;
 		
@@ -232,9 +241,9 @@ public class FechayHora implements ReceptorDeMensaje{
 		}
 		
 		LocalDate d1=LocalDate.of(años, mes+1, dia);
-		LocalDate d2=LocalDate.now();
-		/*long diasEntre= ChronoUnit.DAYS.between(d1, d2);
-		*/
+		LocalDate d2=LocalDate.of(gc.get(Calendar.YEAR),gc.get(Calendar.MONTH)+1,gc.get(Calendar.DAY_OF_MONTH));
+		
+
 		  
 		long monthBetween = ChronoUnit.YEARS.between(d1, d2);
 	    //fechaInicio.setTime(FECHA_HORA);
@@ -246,60 +255,60 @@ public class FechayHora implements ReceptorDeMensaje{
 
 	@Override
 	public String escuchar(String msg, String usuario) {
-		String msjParaMetodo;
+	
 		if (msg.contains("hora")) {
-			msjParaMetodo = "" + msg;
-			return usuario + (FechayHora.hora(msjParaMetodo));
+	
+			return usuario + (hora(msg));
 			
 		}
 
 		if (msg.contains("meses") ||msg.contains("año") ||(msg.contains("fecha") || msg.contains("día") || msg.contains("dia"))) {
-			msjParaMetodo = "" + msg;
+		
 			if (msg.contains("semana"))
-				return usuario + (FechayHora.diaSemana(msjParaMetodo));
+				return usuario + (diaSemana(msg));
 			
 			else if(msg.contains("dentro de ")) {
 				
 				if(msg.contains("meses")||msg.contains("mes"))
-					return usuario+ (FechayHora.diaDentroNmeses(msg));
+					return usuario+ (diaDentroNmeses(msg));
 				
 				else if(msg.contains("años")||msg.contains("año"))
-					return usuario + (FechayHora.diaDentroNaños(msg));
+					return usuario + (diaDentroNaños(msg));
 				
 				else
-				return usuario + (FechayHora.diaDentroNdias(msg));
+				return usuario + (diaDentroNdias(msg));
 				
 			}
 
 			else if(msg.contains("mañana"))
-				return usuario + (FechayHora.diaDentroNdias("dentro de 1 dia"));
+				return usuario + (diaDentroNdias("dentro de 1 dia"));
 			
 			else if(msg.contains("hace ")) {
 				
 				if(msg.contains("meses")||msg.contains("mes"))
-					return usuario +(FechayHora.diaHaceNmeses(msg));
+					return usuario +(diaHaceNmeses(msg));
 				
 				else if(msg.contains("años")||msg.contains("año"))
-					return usuario +(FechayHora.diaHaceNaños(msg));
+					return usuario +(diaHaceNaños(msg));
 				
 				else
-					return usuario +(FechayHora.diaHaceNdias(msg));
+					return usuario +(diaHaceNdias(msg));
 				
 			}
 			else if(msg.contains("desde")){
 				
 				if(msg.contains("meses")||msg.contains("mes"))
-					return usuario +(FechayHora.mesesDesdeXHastaY(msg));
+					return usuario +(mesesDesdeXHastaY(msg));
 				
 				else if(msg.contains("años")||msg.contains("año"))
-					return usuario +(FechayHora.añosDesdeXHastaY(msg));
+					return usuario +(añosDesdeXHastaY(msg));
 				
 				else
-					return usuario +(FechayHora.diasDesdeXHastaY(msg));
+					return usuario +(diasDesdeXHastaY(msg));
 				
 			}
 			else
-				return usuario +(FechayHora.fecha(msjParaMetodo));
+				return usuario +(fecha(msg));
 			
 			
 		}

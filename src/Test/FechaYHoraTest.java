@@ -2,11 +2,10 @@ package Test;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 
 import org.junit.Assert;
 import org.junit.Before;
-//import org.junit.Test;
+import org.junit.Test;
 
 import asistente.Asistente;
 
@@ -14,20 +13,24 @@ public class FechaYHoraTest {
 	Asistente jenkins;
 	DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 	DateFormat formatoHora = new SimpleDateFormat("HH:mm");
-
+	
 	@Before
 
 	public void setup() {
+		
+		
+		
 		jenkins = new Asistente("jenkins");
+		jenkins.modoPrueba(true);
 		jenkins.setUsuario("Franco");
 	}
 
-	//@Test
+	@Test
 
 	public void testFecha() {
-		Assert.assertEquals(jenkins.getUsuario() +" hoy es " + formatoFecha.format(new GregorianCalendar().getTime()),
+		Assert.assertEquals(jenkins.getUsuario() +" hoy es 03/05/2018" ,
 				jenkins.escuchar("que dia es hoy?"));
-		Assert.assertEquals(jenkins.getUsuario() +" son las " + formatoHora.format(new GregorianCalendar().getTime()),
+		Assert.assertEquals(jenkins.getUsuario() +" son las 00:00",
 				jenkins.escuchar("que hora es?"));
 		Assert.assertEquals(jenkins.getUsuario() +" hoy es jueves", jenkins.escuchar("que dia de la semana es hoy?"));
 		Assert.assertEquals(jenkins.getUsuario() +" dentro de 10 días será 13/05/2018",

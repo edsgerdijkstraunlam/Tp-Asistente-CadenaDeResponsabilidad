@@ -1,5 +1,7 @@
 package asistente;
 
+import java.util.GregorianCalendar;
+
 import cadenaDeResponsabilidades.Agradecimiento;
 import cadenaDeResponsabilidades.Calculadora;
 
@@ -18,35 +20,56 @@ public class Asistente {
 	private String nombre;
 	private String usuario;
 
+	private FechayHora fyh;
+	private Calculadora calc;
+	private Saludo saludo;
+	private Agradecimiento agrad;
+	private Clima cli;
+	private Noticias noti;
+	private ChuckNorris cn;
+	private LeyesDeLaRobotica lr;
+	private Default def;
+
 	public Asistente(String nombre) {
 		this.nombre = nombre;
 
-		Calculadora calc = new Calculadora();
+		calc = new Calculadora();
 		this.next = calc;
 
-		Saludo saludo = new Saludo();
+		saludo = new Saludo();
 		calc.setNext(saludo);
 
-		FechayHora fyh = new FechayHora();
+		fyh = new FechayHora();
 		saludo.setNext(fyh);
 
-		Agradecimiento agrad = new Agradecimiento();
+		agrad = new Agradecimiento();
 		fyh.setNext(agrad);
-		
-		Clima cli = new Clima();
+
+		cli = new Clima();
 		agrad.setNext(cli);
-		
-		Noticias noti = new Noticias();
+
+		noti = new Noticias();
 		cli.setNext(noti);
 
-		ChuckNorris cn = new ChuckNorris();
+		cn = new ChuckNorris();
 		noti.setNext(cn);
-		
-		LeyesDeLaRobotica lr= new LeyesDeLaRobotica();
+
+		lr = new LeyesDeLaRobotica();
 		cn.setNext(lr);
 
-		Default def = new Default();
+		def = new Default();
 		lr.setNext(def);
+	}
+
+	public void modoPrueba(boolean prueba) {
+		if (prueba) {
+			GregorianCalendar gc = new GregorianCalendar(2018, 4, 03);
+			fyh = new FechayHora(gc);
+		} else {
+			fyh = new FechayHora();
+		}
+		saludo.setNext(fyh);
+		fyh.setNext(agrad);
 	}
 
 	public String getName() {
