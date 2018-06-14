@@ -10,6 +10,7 @@ import cadenaDeResponsabilidades.Clima;
 import cadenaDeResponsabilidades.Default;
 import cadenaDeResponsabilidades.FechayHora;
 import cadenaDeResponsabilidades.LeyesDeLaRobotica;
+import cadenaDeResponsabilidades.Meme;
 import cadenaDeResponsabilidades.Noticias;
 import cadenaDeResponsabilidades.Saludo;
 
@@ -29,6 +30,7 @@ public class Asistente {
 	private ChuckNorris cn;
 	private LeyesDeLaRobotica lr;
 	private Default def;
+	private Meme meme;
 
 	public Asistente(String nombre) {
 		this.nombre = nombre;
@@ -51,8 +53,11 @@ public class Asistente {
 		noti = new Noticias();
 		cli.setNext(noti);
 
+		meme = new Meme();
+		noti.setNext(meme);
+
 		cn = new ChuckNorris();
-		noti.setNext(cn);
+		meme.setNext(cn);
 
 		lr = new LeyesDeLaRobotica();
 		cn.setNext(lr);

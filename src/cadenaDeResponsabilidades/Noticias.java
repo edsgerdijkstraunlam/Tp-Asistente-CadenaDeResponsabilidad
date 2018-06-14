@@ -200,7 +200,7 @@ public String getHora() throws IOException {
 	        }
 	        
 	        
-	        return outgoing;
+	        return outgoing.replace("ldquo;", "").replace("&amp;", "").replace("rdquo;", "");
 	    }
 	    catch (MalformedURLException e) {
 	    	System.out.println("error");
