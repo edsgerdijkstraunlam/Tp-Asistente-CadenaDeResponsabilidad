@@ -9,6 +9,7 @@ import cadenaDeResponsabilidades.ChuckNorris;
 import cadenaDeResponsabilidades.Clima;
 import cadenaDeResponsabilidades.Default;
 import cadenaDeResponsabilidades.FechayHora;
+import cadenaDeResponsabilidades.Gif;
 import cadenaDeResponsabilidades.LeyesDeLaRobotica;
 import cadenaDeResponsabilidades.Meme;
 import cadenaDeResponsabilidades.Noticias;
@@ -27,6 +28,7 @@ public class Asistente {
 	private Agradecimiento agrad;
 	private Clima cli;
 	private Noticias noti;
+	private Gif gif;
 	private ChuckNorris cn;
 	private LeyesDeLaRobotica lr;
 	private Default def;
@@ -38,8 +40,11 @@ public class Asistente {
 		calc = new Calculadora();
 		this.next = calc;
 
+		gif= new Gif();
+		calc.setNext(gif);
+		
 		saludo = new Saludo();
-		calc.setNext(saludo);
+		gif.setNext(saludo);
 
 		fyh = new FechayHora();
 		saludo.setNext(fyh);
