@@ -7,13 +7,13 @@ import cadenaDeResponsabilidades.Calculadora;
 
 import cadenaDeResponsabilidades.ChuckNorris;
 import cadenaDeResponsabilidades.Clima;
-import cadenaDeResponsabilidades.ConversorDeUnidades;
 import cadenaDeResponsabilidades.Default;
 import cadenaDeResponsabilidades.FechayHora;
 import cadenaDeResponsabilidades.Gif;
 import cadenaDeResponsabilidades.LeyesDeLaRobotica;
 import cadenaDeResponsabilidades.Meme;
 import cadenaDeResponsabilidades.Noticias;
+import cadenaDeResponsabilidades.NueveGag;
 import cadenaDeResponsabilidades.Saludo;
 
 public class Asistente {
@@ -34,13 +34,17 @@ public class Asistente {
 	private LeyesDeLaRobotica lr;
 	private Default def;
 	private Meme meme;
-	private ConversorDeUnidades conversor;
-
+	private NueveGag gag;
+	
 	public Asistente(String nombre) {
+		
 		this.nombre = nombre;
-
+		
+		gag = new NueveGag() ;
+		this.next = gag;
+		
 		calc = new Calculadora();
-		this.next = calc;
+		gag.setNext(calc);
 
 		gif= new Gif();
 		calc.setNext(gif);
@@ -69,11 +73,9 @@ public class Asistente {
 		lr = new LeyesDeLaRobotica();
 		cn.setNext(lr);
 		
-		conversor = new ConversorDeUnidades();
-		lr.setNext(conversor);
-
 		def = new Default();
-		conversor.setNext(def);
+		lr.setNext(def);
+		
 	}
 
 	public void modoPrueba(boolean prueba) {
