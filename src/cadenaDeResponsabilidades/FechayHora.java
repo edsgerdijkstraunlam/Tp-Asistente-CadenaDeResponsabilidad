@@ -256,7 +256,7 @@ public class FechayHora implements ReceptorDeMensaje{
 	@Override
 	public String escuchar(String msg, String usuario) {
 	
-		if (msg.contains("hora")) {
+		if (msg.contains("la hora") || msg.contains("hora es")) {
 	
 			return usuario + (hora(msg));
 			

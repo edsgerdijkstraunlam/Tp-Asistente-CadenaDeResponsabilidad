@@ -31,9 +31,15 @@ public class ConversionesDeUnidades {
 			resultado = (double)convertir.invoke(convertidor, cantidad); // Invoco al metodo pasandole la instancia y su parametro.
 			
 		} catch (Exception e) {
-			System.out.println("La conversion de se pudo realizar");
+			System.out.println("La conversion no se pudo realizar");
 			
 		}
+		
+		if(uniOriginal.contains("Cubico")){
+			uniOriginal = uniOriginal.substring(0,uniOriginal.indexOf("Cubico")) + " cúbico";
+			uniNueva = uniNueva.substring(0,uniNueva.indexOf("Cubico")) + " cúbico";
+		}
+		
 		return cantidad + " " + uniOriginal.toLowerCase() + " equivale a " + decimalFormat.format(resultado).replaceAll(",", ".") + " " + uniNueva.toLowerCase();
 	}
 	
@@ -47,12 +53,15 @@ public class ConversionesDeUnidades {
 	public static String darUnidad(String cadena) {
 	
 		String[] unidades = { "Miligramo", "Gramo", "Kilo", "Milimetro", "Centimetro", "Metro",
-				"Kilometro", "Segundo", "Minuto", "Hora", "Pie", "Pulgada" };
+				"Kilometro", "Segundo", "Minuto", "Hora", "Pie", "Pulgada", "Onza" };
 		
 		int i = 0;
 		
 		while(!cadena.contains(unidades[i].toLowerCase()))
 			i++;
+		
+		if(cadena.contains("cúbic"))
+			return unidades[i]+="Cubico";
 
 		return unidades[i];
 

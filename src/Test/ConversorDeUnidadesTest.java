@@ -20,6 +20,13 @@ public class ConversorDeUnidadesTest {
 		Assert.assertEquals(jenkins.getUsuario() +" 100 centimetro equivale a 1 metro", jenkins.escuchar("@jenkins cuantos metros son 100 centimetros"));
 		Assert.assertEquals(jenkins.getUsuario() +" 2 metro equivale a 6.56 pie", jenkins.escuchar("@jenkins cuantos pie son 2 metros"));
 		Assert.assertEquals(jenkins.getUsuario() +" 2 metro equivale a 78.74 pulgada", jenkins.escuchar("@jenkins cuantas pulgadas son 2 metros"));
+		Assert.assertEquals(jenkins.getUsuario() +" 2 pie equivale a 0.61 metro", jenkins.escuchar("@jenkins cuantas metros son 2 pies"));
+		Assert.assertEquals(jenkins.getUsuario() +" 2 kilo equivale a 2000 gramo", jenkins.escuchar("@jenkins cuantas gramos son 2 kilos"));
+		Assert.assertEquals(jenkins.getUsuario() +" 2000 gramo equivale a 2 kilo", jenkins.escuchar("@jenkins cuantas kilos son 2000 gramos"));
+		Assert.assertEquals(jenkins.getUsuario() +" 60 onza equivale a 1700.97 gramo", jenkins.escuchar("@jenkins cuantos gramos son 60 onzas"));
+		Assert.assertEquals(jenkins.getUsuario() +" 2 centimetro cúbico equivale a 2000 milimetro cúbico", jenkins.escuchar("@jenkins cuantos milimetros cúbicos son 2 centimetros cúbicos"));
+		Assert.assertEquals(jenkins.getUsuario() +" 6 metro cúbico equivale a 211.89 pie cúbico", jenkins.escuchar("@jenkins cuantos pie cúbicos son 6 metros cúbicos"));
+		Assert.assertEquals(jenkins.getUsuario() +" 2 hora equivale a 120 minuto", jenkins.escuchar("@jenkins cuantos minutos son 2 horas"));
 	}
 
 }

@@ -6,7 +6,7 @@ import conversor.ConversionesDeUnidades;
 public class ConversorDeUnidades implements ReceptorDeMensaje {
 	
 	private String[] unidades = {"kilo", "gramo", "miligramo", "Kilometro", "metro", "centimetro", "milimetro", 
-			"pie","pulgada","hora", "minuto", "segundo"};
+			"pie","pulgada","hora", "minuto", "segundo", "onza"};
 	private ReceptorDeMensaje next;
 
 	@Override
