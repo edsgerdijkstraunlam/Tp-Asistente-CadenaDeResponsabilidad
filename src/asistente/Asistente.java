@@ -7,6 +7,7 @@ import cadenaDeResponsabilidades.Calculadora;
 
 import cadenaDeResponsabilidades.ChuckNorris;
 import cadenaDeResponsabilidades.Clima;
+import cadenaDeResponsabilidades.ConversorDeUnidades;
 import cadenaDeResponsabilidades.Default;
 import cadenaDeResponsabilidades.FechayHora;
 import cadenaDeResponsabilidades.Gif;
@@ -35,6 +36,7 @@ public class Asistente {
 	private Default def;
 	private Meme meme;
 	private NueveGag gag;
+	private ConversorDeUnidades conversor;
 	
 	public Asistente(String nombre) {
 		
@@ -73,8 +75,11 @@ public class Asistente {
 		lr = new LeyesDeLaRobotica();
 		cn.setNext(lr);
 		
+		conversor = new ConversorDeUnidades();
+		lr.setNext(conversor);
+		
 		def = new Default();
-		lr.setNext(def);
+		conversor.setNext(def);
 		
 	}
 
