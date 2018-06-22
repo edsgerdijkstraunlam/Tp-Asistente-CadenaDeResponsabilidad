@@ -52,7 +52,7 @@ public class ConversionesDeUnidades {
 	
 	public static String darUnidad(String cadena) {
 	
-		String[] unidades = { "Miligramo", "Gramo", "Kilo", "Milimetro", "Centimetro", "Metro",
+		String[] unidades = { "Miligramo", "Gramo","Kilometro", "Kilo", "Milimetro", "Centimetro", "Metro",
 				"Kilometro", "Segundo", "Minuto", "Hora", "Pie", "Pulgada", "Onza" };
 		
 		int i = 0;
