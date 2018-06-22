@@ -78,6 +78,8 @@ public class NueveGag implements ReceptorDeMensaje{
 
 		if (msg.contains("9gag")) {
 			resp = getImagen() ;
+			if(resp==null)
+				resp="&not&";
 			return "&9gag&:" + resp ;
 		}
 

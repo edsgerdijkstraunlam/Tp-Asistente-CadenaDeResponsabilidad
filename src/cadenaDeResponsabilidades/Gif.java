@@ -81,19 +81,19 @@ public class Gif implements ReceptorDeMensaje {
 				String busqueda = msg.substring(msg.indexOf("sobre") + 6);
 				resp = getMeme(busqueda);
 				resp = (resp == null) ? "&not&" : resp;
-				return "&gif&:" + resp;
+				return "&gif_&:" + resp;
 			}
 
 			if (msg.contains("de")) {
 				String busqueda = msg.substring(msg.indexOf("de") + 3);
 				resp = getMeme(busqueda);
 				resp = (resp == null) ? "&not&" : resp;
-				return "&gif&:" + resp;
+				return "&gif_&:" + resp;
 			}
 			msg = msg.replaceFirst("gif ", "");
 			resp = getMeme(msg);
 			resp = (resp == null) ? "&not&" : resp;
-			return "&gif&:" + resp;
+			return "&gif_&:" + resp;
 		}
 
 		return this.next.escuchar(msg, usuario);
