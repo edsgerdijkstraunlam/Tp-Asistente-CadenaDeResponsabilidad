@@ -11,10 +11,16 @@ public class ConversorDeUnidades implements ReceptorDeMensaje {
 
 	@Override
 	public String escuchar(String msg, String usuario) {
-		
+		String resp="";
 		for(String unidad : unidades){
-			if(msg.toLowerCase().contains(unidad))
-				return usuario + " " + ConversionesDeUnidades.convertido(msg) ;
+			if(msg.toLowerCase().contains(unidad)) {
+				try {
+					resp=ConversionesDeUnidades.convertido(msg) ;
+				}catch(Exception e) {
+					return next.escuchar(msg, usuario);
+					}
+				return usuario + " " + resp ;
+			}
 		}
 		return next.escuchar(msg, usuario);
 	}

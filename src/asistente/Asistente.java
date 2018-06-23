@@ -3,6 +3,7 @@ package asistente;
 import java.util.GregorianCalendar;
 
 import cadenaDeResponsabilidades.Agradecimiento;
+import cadenaDeResponsabilidades.BusquedaEnInternet;
 import cadenaDeResponsabilidades.Calculadora;
 
 import cadenaDeResponsabilidades.ChuckNorris;
@@ -37,6 +38,7 @@ public class Asistente {
 	private Meme meme;
 	private NueveGag gag;
 	private ConversorDeUnidades conversor;
+	private BusquedaEnInternet wiki;
 	
 	public Asistente(String nombre) {
 		
@@ -51,8 +53,12 @@ public class Asistente {
 		gif= new Gif();
 		calc.setNext(gif);
 		
+		conversor = new ConversorDeUnidades();
+		gif.setNext(conversor);
+		
+		
 		saludo = new Saludo();
-		gif.setNext(saludo);
+		conversor.setNext(saludo);
 
 		fyh = new FechayHora();
 		saludo.setNext(fyh);
@@ -75,11 +81,11 @@ public class Asistente {
 		lr = new LeyesDeLaRobotica();
 		cn.setNext(lr);
 		
-		conversor = new ConversorDeUnidades();
-		lr.setNext(conversor);
+		wiki= new BusquedaEnInternet();
+		lr.setNext(wiki);
 		
 		def = new Default();
-		conversor.setNext(def);
+		wiki.setNext(def);
 		
 	}
 
