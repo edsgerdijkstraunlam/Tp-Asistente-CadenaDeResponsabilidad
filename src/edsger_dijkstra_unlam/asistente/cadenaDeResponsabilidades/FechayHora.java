@@ -27,21 +27,21 @@ public class FechayHora extends ReceptorDeMensaje{
 	
 	
 	
-	public String fecha(String mensaje) {
+	private String fecha(String mensaje) {
 
 		DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 		return " hoy es " + formatoFecha.format(FECHA_HORA);
 
 	}
 
-	public String hora(String mensaje) {
+	private String hora(String mensaje) {
 
 		DateFormat formatoHora = new SimpleDateFormat("HH:mm");
 		return " son las " + formatoHora.format(FECHA_HORA);
 
 	}
 	
-	public String diaSemana(String mensaje){
+	private String diaSemana(String mensaje){
 		
 		String[] diasSemana = new String[] { "domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado" };
 
@@ -52,7 +52,7 @@ public class FechayHora extends ReceptorDeMensaje{
 		return " hoy es " + diasSemana[dia] ;
 	}
 	
-	public String diaDentroNdias(String msg){
+	private String diaDentroNdias(String msg){
 		String []cant=msg.substring(msg.indexOf("dentro de")+10,msg.length()).split(" ");
 		
 		 int dias = Integer.valueOf(cant[0]);
@@ -66,7 +66,7 @@ public class FechayHora extends ReceptorDeMensaje{
 		
 	}
 	
-	public String diaDentroNmeses(String msg){
+	private String diaDentroNmeses(String msg){
 		String []cant=msg.substring(msg.indexOf("dentro de")+10,msg.length()).split(" ");
 		
 		 int meses = Integer.valueOf(cant[0]);
@@ -94,7 +94,7 @@ public class FechayHora extends ReceptorDeMensaje{
 		
 	}
 	
-	public String diaHaceNdias(String msg){
+	private String diaHaceNdias(String msg){
 		
 		String []cant=msg.substring(msg.indexOf("hace")+5,msg.length()).split(" ");
 		
@@ -109,7 +109,7 @@ public class FechayHora extends ReceptorDeMensaje{
 		
 	}
 	
-	public String diaHaceNmeses(String msg){
+	private String diaHaceNmeses(String msg){
 		
 		
 		String []cant=msg.substring(msg.indexOf("hace")+5,msg.length()).split(" ");
@@ -124,7 +124,7 @@ public class FechayHora extends ReceptorDeMensaje{
 		
 	}
 	
-	public String diaHaceNaños(String msg){
+	private String diaHaceNaños(String msg){
 		
 		
 		String []cant=msg.substring(msg.indexOf("hace")+5,msg.length()).split(" ");
@@ -141,7 +141,7 @@ public class FechayHora extends ReceptorDeMensaje{
 	
 	//hay otra forma haciendo la resta entre los milisegundos y dividirlos por 1 dia=1000 * 60 * 60 * 24
 	//cuántos días pasaron desde el 1 de abril de 2017
-	public String diasDesdeXHastaY(String msg){
+	private String diasDesdeXHastaY(String msg){
 		
 		String [] meses = {"enero" , "febrero" , "marzo" , "abril" ,"mayo", "junio" , "julio" ,"agosto" ,"septiembre","octubre","noviembre","diciembre"};		
 		
@@ -175,7 +175,7 @@ public class FechayHora extends ReceptorDeMensaje{
 		return " pasaron " + diasEntre  + " días";
 	}
 	
-	public String mesesDesdeXHastaY(String msg){
+	private String mesesDesdeXHastaY(String msg){
 		
 		String [] meses = {"enero" , "febrero" , "marzo" , "abril" ,"mayo", "junio" , "julio" ,"agosto" ,"septiembre","octubre","noviembre","diciembre"};		
 		
@@ -207,7 +207,7 @@ public class FechayHora extends ReceptorDeMensaje{
 		return " pasaron " + monthBetween  + " meses";
 	}
 	
-	public String añosDesdeXHastaY(String msg){
+	private String añosDesdeXHastaY(String msg){
 		
 		String [] meses = {"enero" , "febrero" , "marzo" , "abril" ,"mayo", "junio" , "julio" ,"agosto" ,"septiembre","octubre","noviembre","diciembre"};		
 		
