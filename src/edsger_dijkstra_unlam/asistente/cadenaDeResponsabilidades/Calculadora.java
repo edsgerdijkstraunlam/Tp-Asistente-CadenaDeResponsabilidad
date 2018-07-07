@@ -8,10 +8,10 @@ import java.util.Stack;
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 import edsger_dijkstra_unlam.asistente.utilitarias.Funcion;
 
-public class Calculadora implements ReceptorDeMensaje {
+public class Calculadora extends ReceptorDeMensaje {
 	private char[] operadoresValidos = new char[] { '+', '-', '/', '*', 'r', '^', '(' };
 
-	private ReceptorDeMensaje next;
+	
 	private ArrayList<Funcion> listaDeFunciones;
 
 	public Calculadora() {
@@ -332,16 +332,6 @@ public class Calculadora implements ReceptorDeMensaje {
 
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig;
-
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-
-		return this.next;
-	}
+	
 
 }

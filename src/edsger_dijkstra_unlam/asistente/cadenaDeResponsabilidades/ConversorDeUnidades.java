@@ -3,11 +3,11 @@ package edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades;
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 import edsger_dijkstra_unlam.asistente.conversor.ConversionesDeUnidades;
 
-public class ConversorDeUnidades implements ReceptorDeMensaje {
+public class ConversorDeUnidades extends ReceptorDeMensaje {
 	
 	private String[] unidades = {"kilo", "gramo", "miligramo", "kilometro", "metro", "centimetro", "milimetro", 
 			"pie","pulgada","hora", "minuto", "segundo", "onza"};
-	private ReceptorDeMensaje next;
+	
 
 	@Override
 	public String escuchar(String msg, String usuario) {
@@ -25,15 +25,5 @@ public class ConversorDeUnidades implements ReceptorDeMensaje {
 		return next.escuchar(msg, usuario);
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig;
-		
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next;
-	}
 
 }

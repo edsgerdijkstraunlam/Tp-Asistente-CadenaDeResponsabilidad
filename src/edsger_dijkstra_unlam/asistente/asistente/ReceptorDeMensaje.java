@@ -1,10 +1,17 @@
 package edsger_dijkstra_unlam.asistente.asistente;
 
-public interface ReceptorDeMensaje {
+public abstract class ReceptorDeMensaje {
 
-	public String escuchar(String msg,String usuario);	
-	public void setNext(ReceptorDeMensaje sig);
-	public ReceptorDeMensaje getNext();
+	protected ReceptorDeMensaje next;
+	
+	public abstract String escuchar(String msg,String usuario);	
+	
+	public final void setNext(ReceptorDeMensaje sig) {
+			this.next=sig;
+	};
+	public final ReceptorDeMensaje getNext() {
+		return this.next;
+	};
 	
 	
 }

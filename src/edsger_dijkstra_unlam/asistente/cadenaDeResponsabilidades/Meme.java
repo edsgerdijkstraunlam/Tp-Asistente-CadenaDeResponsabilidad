@@ -2,10 +2,9 @@ package edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class Meme implements ReceptorDeMensaje {
+public class Meme extends ReceptorDeMensaje {
 
-	private ReceptorDeMensaje next;
-
+	
 	@Override
 	public String escuchar(String msg, String usuario) {
 
@@ -67,15 +66,6 @@ public class Meme implements ReceptorDeMensaje {
 		return next.escuchar(msg, usuario);
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig;
 
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next;
-	}
 
 }

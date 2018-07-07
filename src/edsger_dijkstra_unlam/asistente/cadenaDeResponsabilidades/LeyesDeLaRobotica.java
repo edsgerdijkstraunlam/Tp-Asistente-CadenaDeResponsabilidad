@@ -2,8 +2,8 @@ package edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class LeyesDeLaRobotica implements ReceptorDeMensaje{
-	private ReceptorDeMensaje next;
+public class LeyesDeLaRobotica extends ReceptorDeMensaje{
+	
 	
 	@Override
 	public String escuchar(String msg, String usuario) {
@@ -22,16 +22,7 @@ public class LeyesDeLaRobotica implements ReceptorDeMensaje{
 
 		
 	}
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next=sig;
-		
-	}
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next;
-	}
-	 
+
 	
 	
 	

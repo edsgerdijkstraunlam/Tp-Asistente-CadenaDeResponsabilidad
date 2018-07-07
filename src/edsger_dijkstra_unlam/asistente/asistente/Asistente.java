@@ -16,6 +16,7 @@ import edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades.Meme;
 import edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades.Noticias;
 import edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades.NueveGag;
 import edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades.Saludo;
+import edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades.Youtube;
 
 public class Asistente {
 
@@ -38,6 +39,7 @@ public class Asistente {
 	private NueveGag gag;
 	private ConversorDeUnidades conversor;
 	private BusquedaEnInternet wiki;
+	private Youtube youtube;
 	
 	public Asistente(String nombre) {
 		
@@ -80,11 +82,14 @@ public class Asistente {
 		lr = new LeyesDeLaRobotica();
 		cn.setNext(lr);
 		
-		wiki= new BusquedaEnInternet();
+		wiki = new BusquedaEnInternet();
 		lr.setNext(wiki);
 		
+		youtube = new Youtube();
+		wiki.setNext(youtube);
+		
 		def = new Default();
-		wiki.setNext(def);
+		youtube.setNext(def);
 		
 	}
 

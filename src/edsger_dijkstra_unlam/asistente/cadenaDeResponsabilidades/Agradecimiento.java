@@ -2,12 +2,10 @@ package edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class Agradecimiento implements ReceptorDeMensaje {
+public class Agradecimiento extends ReceptorDeMensaje {
 
 	private final String[] vectorAgradecimientos = {"gracias", "bien hecho", "buen trabajo","genial"};
 	private final String[] vectorAgradecimientosRespuestas = {"de nada", "muchas gracias", "gracias, no hay de que","gracias"};
-	private ReceptorDeMensaje next;
-	
 	
 	
 	
@@ -32,14 +30,6 @@ public class Agradecimiento implements ReceptorDeMensaje {
 
 	
 	
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next=sig;
-		
-	}
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next;
-	}
+
 
 }

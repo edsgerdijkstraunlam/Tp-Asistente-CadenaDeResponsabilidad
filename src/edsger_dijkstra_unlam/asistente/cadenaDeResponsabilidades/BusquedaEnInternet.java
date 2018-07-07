@@ -8,15 +8,13 @@ import java.util.ArrayList;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class BusquedaEnInternet implements ReceptorDeMensaje {
+public class BusquedaEnInternet extends ReceptorDeMensaje {
 
 	int last;
 	ArrayList<String> lista = new ArrayList<String>();
 	String subStringDir;
-	private ReceptorDeMensaje next;
 
 	public String obtenerEnlace(String busqueda) {
-	
 
 		String texto = "";
 		String acumuladorDeTexto = "";
@@ -57,7 +55,7 @@ public class BusquedaEnInternet implements ReceptorDeMensaje {
 		} catch (Exception e) {
 			direccion = "https://www.google.com/search?q=" + busqueda.replace(" ", "+");
 			return "&not&" + direccion.length() + "&" + direccion;
-			
+
 		}
 
 		direccion = "https://www.google.com/search?q=" + busqueda.replace(" ", "+");
@@ -83,6 +81,7 @@ public class BusquedaEnInternet implements ReceptorDeMensaje {
 			msg = msg.replace("buscar", "");
 			busca = true;
 		} else if (msg.contains("?")) {
+			msg = msg.replace("?", "");
 			busca = true;
 		}
 
@@ -106,17 +105,5 @@ public class BusquedaEnInternet implements ReceptorDeMensaje {
 		}
 		return next.escuchar(msg, usuario);
 	}
-
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig;
-
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next;
-	}
-
 
 }

@@ -13,9 +13,8 @@ import org.xml.sax.SAXException;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class Noticias implements ReceptorDeMensaje {
+public class Noticias extends ReceptorDeMensaje {
 
-	private ReceptorDeMensaje next;
 
 	public String getHora() throws IOException {
 
@@ -209,15 +208,5 @@ public class Noticias implements ReceptorDeMensaje {
 		return next.escuchar(msg, usuario);
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig;
-
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next;
-	}
 
 }

@@ -14,9 +14,7 @@ import org.xml.sax.SAXException;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class Clima implements ReceptorDeMensaje {
-
-	private ReceptorDeMensaje next;
+public class Clima extends ReceptorDeMensaje {
 
 	public String getClimaxPaisCiudad() throws IOException, SAXException, ParserConfigurationException {
 
@@ -169,15 +167,6 @@ public class Clima implements ReceptorDeMensaje {
 		return next.escuchar(msg, usuario);
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig;
-
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next;
-	}
+	
 
 }

@@ -9,14 +9,13 @@ import java.util.ArrayList;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class Gif implements ReceptorDeMensaje {
+public class Gif extends ReceptorDeMensaje {
 
 	int last;
 	int ini;
 	int fin;
 	ArrayList<String> lista = new ArrayList<String>();
 	String subStringDir;
-	private ReceptorDeMensaje next;
 
 	public String getMeme(String meme) {
 		meme = meme.replace(" ", "_");
@@ -94,16 +93,5 @@ public class Gif implements ReceptorDeMensaje {
 		return this.next.escuchar(msg, usuario);
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig;
-
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-
-		return this.next;
-	}
 
 }

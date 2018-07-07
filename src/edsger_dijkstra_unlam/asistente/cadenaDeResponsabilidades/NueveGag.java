@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class NueveGag implements ReceptorDeMensaje{
+public class NueveGag extends ReceptorDeMensaje{
 
 	int last;
 	int ini;
@@ -17,7 +17,6 @@ public class NueveGag implements ReceptorDeMensaje{
 	ArrayList<String> lista = new ArrayList<String>();
 	String []categorias = {"starwars","pokemon","cute","gaming","relationship","politics","wtf","superhero","science","comic"};
 	String subStringDir;
-	private ReceptorDeMensaje next ;
 
 	public String getImagen() {
 
@@ -85,14 +84,5 @@ public class NueveGag implements ReceptorDeMensaje{
 		return this.next.escuchar(msg, usuario);
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig;
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next ;
-	}
 
 }

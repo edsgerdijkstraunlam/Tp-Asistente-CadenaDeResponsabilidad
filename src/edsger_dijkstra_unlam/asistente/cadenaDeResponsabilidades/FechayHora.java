@@ -10,10 +10,9 @@ import java.util.GregorianCalendar;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class FechayHora implements ReceptorDeMensaje{
+public class FechayHora extends ReceptorDeMensaje{
 	
 	
-	private ReceptorDeMensaje next;
 
 	GregorianCalendar gc=new GregorianCalendar();
 	public Date FECHA_HORA;
@@ -303,15 +302,6 @@ public class FechayHora implements ReceptorDeMensaje{
 		return next.escuchar(msg,usuario);
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next=sig;
-		
-	}
 
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next;
-	}
 	
 }

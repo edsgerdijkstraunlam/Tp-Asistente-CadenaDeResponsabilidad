@@ -2,7 +2,7 @@ package edsger_dijkstra_unlam.asistente.cadenaDeResponsabilidades;
 
 import edsger_dijkstra_unlam.asistente.asistente.ReceptorDeMensaje;
 
-public class ChuckNorris implements ReceptorDeMensaje{
+public class ChuckNorris extends ReceptorDeMensaje{
 	
 	private String [] frases = {"Chuck Norris puede dividir por cero." , 
 								"Chuck Norris puede encontrar el final de un circulo." , 
@@ -16,7 +16,6 @@ public class ChuckNorris implements ReceptorDeMensaje{
 								"Chuck Norris juega a la ruleta rusa con un revolver totalmente cargado... y gana."
 								} ;
 	private int proximoTip = 0 ; 
-	private ReceptorDeMensaje next ;
 	
 	@Override
 	public String escuchar(String msg, String usuario) {
@@ -39,14 +38,5 @@ public class ChuckNorris implements ReceptorDeMensaje{
 		return next.escuchar(msg, usuario);
 	}
 
-	@Override
-	public void setNext(ReceptorDeMensaje sig) {
-		this.next = sig ;
-	}
-
-	@Override
-	public ReceptorDeMensaje getNext() {
-		return this.next ;
-	}
-
+	
 }
